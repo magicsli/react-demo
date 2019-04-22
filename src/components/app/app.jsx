@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 
 import CommentAdd from "../comment-add/comment-add"
 import CommentList from '../comment-list/comment-list'
+import Getkey from '../comment-axios/comment-gethub-Getkey'
+
 export default class App extends Component {
     // constructor(props){
     //     super(props)
     //     this.state = {
 
-    //     }
+    //     } 
     // }
 
     state = {
@@ -39,6 +41,7 @@ export default class App extends Component {
                 <div className="row">
                     <div className="colo-xs-12">
                         <h1>请发表对React的评论</h1>
+                        <Getkey />
                     </div>
                 </div>
             </div>
