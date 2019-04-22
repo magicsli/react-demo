@@ -17,9 +17,21 @@ export default class App extends Component {
         ]
     }
 
-  render() {
-    const {comments} = this.state
+    handleInput = (username, content)=>{
+      const {comments} = this.state;
+      comments.push({username, content});
+      this.setState({comments})
+    }
 
+    handleDelet = (index)=>{
+        const {comments} = this.state;
+        comments.splice(index,1);
+        this.setState({comments})
+    }
+
+  render() {
+    const {comments} = this.state;
+    
     return (
       <div>
           <header className="site-header jumbotron">
@@ -32,8 +44,8 @@ export default class App extends Component {
             </div>
           </header>
           <div className="container">
-                <CommentAdd />
-                <CommentList comments={comments} />
+                <CommentAdd handleInput = {this.handleInput} />
+                <CommentList handleDelet={this.handleDelet}  comments={comments} />
            </div>
       </div>
     )
