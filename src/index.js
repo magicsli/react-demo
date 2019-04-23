@@ -1,7 +1,17 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './components/app/app';
+
+
+// 评论栏Demo 
+// import App from './components/app/app';
+
+
+// Axios demo 
+import Axios_app from './components/comment-axios/axios-demo/axios-app.jsx';
+
+
 
 import  "./index.css"
 
-render(<App/>, document.getElementById("root")); 
+
+render(< Axios_app/>, document.getElementById("root")); 

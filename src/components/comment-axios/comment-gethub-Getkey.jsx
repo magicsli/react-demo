@@ -18,7 +18,7 @@ export default class Getkey extends Component {
         // })
 
         fetch(url).then( response =>{
-            return response.json()
+            return response.json();
         }).then( data=>{
             console.log(data)
             const {name, html_url} = data.items[0];
