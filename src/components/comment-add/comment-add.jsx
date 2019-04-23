@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 
-import PropTypes from 'prop-types'
+
+  //  使用原生父子组件传值 -  繁琐  -
+// import PropTypes from 'prop-types'
+
+  //  调用发布Pubsub 发布机制库
+import PubSub from 'pubsub-js'
+
 export default class CommentAdd extends Component {
 
-    static propTypes ={
-        handleInput: PropTypes.func.isRequired
-    }
+/*  使用  pubsub 消息发送机制重新实现功能  */ 
+
+    // static propTypes ={
+    //     handleInput: PropTypes.func.isRequired
+    // }
 
     handleInput = ()=>{
         let username = this.username.value.trim();
         let content = this.content.value.trim();
         if(username === "" || content ===  "") return;
-        this.props.handleInput(username, content);
+        PubSub.publish("add",{username, content} )
+        // this.props.handleInput(username, content);
         this.username.value = "";
         this.content.value = "";
     }   

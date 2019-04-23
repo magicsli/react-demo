@@ -3,15 +3,15 @@ import {render} from 'react-dom';
 
 
 // 评论栏Demo 
-// import App from './components/app/app';
+import App from './components/app/app';
 
 
 // Axios demo 
-import Axios_app from './components/comment-axios/axios-demo/axios-app.jsx';
+// import Axios_app from './components/app/axios-app';
 
 
 
 import  "./index.css"
 
 
-render(< Axios_app/>, document.getElementById("root")); 
+render(< App/>, document.getElementById("root")); 

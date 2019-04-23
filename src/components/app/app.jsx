@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PubSub from 'pubsub-js'
+
 
 import CommentAdd from "../comment-add/comment-add"
 import CommentList from '../comment-list/comment-list'
@@ -19,21 +21,31 @@ export default class App extends Component {
         ]
     }
 
-    handleInput = (username, content)=>{
-      const {comments} = this.state;
-      comments.push({username, content});
-      this.setState({comments})
-    }
+      /*  子组件需要传值, 需要在父组件设置回调函数,  - 繁琐 - */
+    // handleInput = (username, content)=>{
+    //   const {comments} = this.state;
+    //   comments.push({username, content});
+    //   this.setState({comments})
+    // }
 
-    handleDelet = (index)=>{
+
+
+    componentDidMount() {
+      PubSub.subscribe("add", (msg, data) => {
         const {comments} = this.state;
-        comments.splice(index,1);
-        this.setState({comments})
+        comments.push(data);
+        this.setState(comments);
+      });
+      PubSub.subscribe("del", (msg, index)=>{
+        const { comments } = this.state;
+        comments.splice(index, 1);
+        this.setState({ comments })
+      })
     }
+    
 
   render() {
     const {comments} = this.state;
-    
     return (
       <div>
           <header className="site-header jumbotron">
@@ -47,8 +59,11 @@ export default class App extends Component {
             </div>
           </header>
           <div className="container">
-                <CommentAdd handleInput = {this.handleInput} />
-                <CommentList handleDelet={this.handleDelet}  comments={comments} />
+                {/* 原生传值方式 */}
+                {/*<CommentAdd handleInput = {this.handleInput} />*/}
+               
+                <CommentAdd  />
+                <CommentList comments={comments} />
            </div>
       </div>
     )

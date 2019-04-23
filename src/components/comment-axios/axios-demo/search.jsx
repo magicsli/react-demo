@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+
+import PubSub from 'pubsub-js'
 
 export default class Search extends Component {
   
-  static propTypes = {
-    getData: PropTypes.func.isRequired
-  }
+
 
   state = {
     keyWord:""
@@ -17,8 +16,12 @@ export default class Search extends Component {
   }
 
   handleGet = ()=>{
-      let {keyWord} = this.state;
-      this.props.getData(keyWord)
+      //  得到input的关键字
+      let keyWord = this.state.keyWord.trim(); 
+      if(keyWord){
+        //  发布消息
+        PubSub.publish("search", keyWord)
+      }
   }
 
   render() {

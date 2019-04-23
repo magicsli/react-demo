@@ -13,12 +13,10 @@ export default class CommentList extends Component {
 
     static propTypes = {
         comments: PropTypes.array.isRequired,
-        handleDelet: PropTypes.func.isRequired
     }
 
   render() {
       const {comments} = this.props;
-      const { handleDelet} = this.props;
       console.log(comments);
       
     return (
@@ -26,7 +24,7 @@ export default class CommentList extends Component {
             <div className="reply">评论回复: </div>
             <h2 style={ {display: comments.length ? "none" : "block"} }>暂无评论,点击左侧添加评论!!!</h2>
             <ul className="list-group">
-                {comments.map((v, i) => <CommentItem handleDelet={handleDelet} index={i}  key={i} comments={v} /> ) }
+                {comments.map((v, i) => <CommentItem  index={i}  key={i} comments={v} /> ) }
             </ul>
         </div>
     )

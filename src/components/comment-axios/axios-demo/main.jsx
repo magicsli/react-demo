@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PropTypes from 'prop-types'
-
+import  PubSub from  "pubsub-js"
 
 
 export default class Main extends Component {
 
-  static propTypes = {
-      keyWord: PropTypes.string.isRequired
-  }
 
   state = {
     initView: true,
@@ -17,29 +13,31 @@ export default class Main extends Component {
     errorMsg: null
   }
 
-  componentWillReceiveProps (nextProps, nextState) {
-    let { keyWord } = nextProps;
-    const url = " https://api.github.com/search/users?q=" + keyWord;
-    this.setState({
-      initView:false,
-      loading:true
-    });
-    axios.get(url).then( (response)=>{
+  componentDidMount() {
+    //  订阅消息 (search)
+    PubSub.subscribe('search', (msg, keyWord)=>{
+        this.setState({
+          initView:false,
+          loading:true
+        })
+
+      const url = " https://api.github.com/search/users?q=" + keyWord;
+      axios.get(url).then((response) => {
         console.log(response);
         const users = response.data.items;
         this.setState({
-          loading:false,
+          loading: false,
           users
         })
-    }).catch( (errorMsg)=>{
-      this.setState({
-        loading: false,
-        errorMsg
+      }).catch((errorMsg) => {
+        this.setState({
+          loading: false,
+          errorMsg
+        })
       })
     } )
   }
   
-
 
   render() {
     const {initView, loading, users, errorMsg} = this.state;
@@ -54,8 +52,8 @@ export default class Main extends Component {
          <div className="row">
         { users.length ? users.map( (v, i)=>{
           return (
-            <div className="card">
-              <a href={v.url} target="_blank">
+            <div className="card"  key={i} style={{ display:"inline-block",  padding:"20px", textAlign:"center", border:"1px solid #666"}}>
+              <a href={v.url} target="noopener noreferrer">
                 <img src={v.avatar_url} style={{ width: "100px" }} alt="" />
               </a>
               <p className="card-text">{v.login}</p>
