@@ -6,3 +6,6 @@
     color: red;
     font-size: 25px;
 }
+.RoutedemoactiveClass{
+    color: red !important;
+}

@@ -26,3 +26,16 @@
     - PubSub.subscribe("事件名" , (msg, data) => {
       ...
     }  )
+
+### react-router demo (遇到一个bug)
+  + 使用react-router-dom 制作了一个类似tab栏的三级联动的小demo, 通过路由进行组件切换,传值
+  + react-router-dom 实际用法:
+      - 导入react-router-dom 组件
+      - 初始化路由组件 `<BrowserRouter></BrowserRouter>` 将app结构放在里面
+      - + 设置路由 route 和 Link或NavLink 进行消息的传递触发.用法类似于消息订阅机制:
+          - 定义NavLink `<NavLink to="/url" activeClassName="activeClass" />`
+          - 定义route   `<Route path="/url" component={`Component `} />`
+          - 传参 在NavLink定义中 `<NavLink to="/url/:id" />` 即使用站位符定义了一个位置的地址, 且使用id将其存储在 this.props.match.params 中
+
+  + 遇到的问题:
+    - 在二级路由的状态下刷新页面, 这时候会出现在index.html中引入的css样式表失效, 查看Network请求时,发现请求到的样式表以及一些组件返回的是index.html的html内容?
