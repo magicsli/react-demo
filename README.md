@@ -39,3 +39,17 @@
 
   + 遇到的问题:
     - 在二级路由的状态下刷新页面, 这时候会出现在index.html中引入的css样式表失效, 查看Network请求时,发现请求到的样式表以及一些组件返回的是index.html的html内容?
+
+### redux demo 
+ + 使用redux 制作一个加减的计算器, 采用redux的状态管理, 统一将状态集中于store对象进行管理
+ + redux 用法:
+    - 导入 redux 组件 ( 注意: redux和react-redux并不是同一个东西, react-redux是一个针对于react开发的redux库 )
+    - store 核心管理对象, 存储所有交付的状态
+    - reducer 新状态的处理函数,通过事件数据和旧状态创建新的状态 (注意: 不要修改旧状态)
+    - + action 表示要执行行为的对象:
+      - type  标识属性, 唯一,必要
+      - data  事件的数据, 任意类型, 属性可选
+    - 理解: 
+        redux就是一个将组件状态收集,统一管理的库. 解决了跨组价传值的问题,而且更集中,
+        我们调用 `redux` 中的 `createStore` 函数, 我们传入一个`reducer`的事件处理函数  创建一个 `store` 核心管理对象, 
+        然后为渲染注册监听事件, 通过`store` 的 `dispatch( action )` 函数,向事件处理函数传递`action`数据, 然后`reducer`根据传过来的数据和旧状态生产一个新的状态
